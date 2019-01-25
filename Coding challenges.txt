@@ -1,0 +1,87 @@
+# 1.) Ask the user for a number. Depending on whether the number is even or odd, print out an appropriate message
+
+num = input("Type a number: ")
+num = int(num)
+
+if (num % 2 ==0):
+    print(num, "is an even number!")
+else:
+    print(num, "is an odd number!")
+	
+
+# 2.) Expanding the previous exercise, let’s say I give you a list saved in a variable: a = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]. Write one line of Python that takes this list a and makes a new list that has only the even elements of this list in it.
+
+a = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+even = [num for num in a if num % 2 == 0]
+
+print(even)
+
+# 3.) Create a function that takes a list of numbers. Return the largest number in the list.
+
+lv = [55, 3, 47, 90, 17, 333]
+print(max(lv))
+
+# 4.) Ask the user for a string and print out whether this string is a palindrome or not. (A palindrome is a string that reads the same forwards and backwards.)
+
+user_str = str(input("Type a word to know if it is a palindrome: "))
+rev_user_str = reversed(user_str)
+
+if list(user_str) == list(rev_user_str):
+    print(user_str + " it is a palindrome")
+else:
+    print(user_str + " it is not a palindrome")
+
+
+# 5.) Write a program that asks the user how many Fibonnaci numbers to generate and then generates them.
+
+def fib_num():
+    num = int(input("Tell me how many Fibonacci numbers would you like to generate? "))
+    x = 1
+    if num == 0:
+        fib = []
+    elif num == 1:
+        fib = [1]
+    elif num == 2:
+        fib = [2]
+    elif num > 2:
+        fib = [1, 1]
+        while x < (num - 1):
+            fib.append(fib[x] + fib[x-1])
+            x += 1
+    return fib
+print(fib_num())
+input()
+
+
+# 6.) Write a program that takes a number and print its square.
+
+square = input("Type a number to find out its square: ")
+square = int(square)
+result = square**2
+
+print("The result is ", result)
+
+# 7.) Given an list of positive integers with higher than 0 the answer should contain average values.
+
+n=int(input("Type how many numbers you want to calculate the average: "))
+a=[]
+
+for i in range(0, n):
+    elem=int(input("Type the number: "))
+    a.append(elem)
+avg = sum(a) / len(a)
+print("The average of your numbers is: ", int(avg))
+
+# 8.) Return the number of vowels per string.
+
+data = input(("Please type a setence to dicover how may vowels it has: "))
+vowels = "aeiouAEIOU"
+for v in vowels:
+    print(v, data.count(v))
+
+# 9.) Write a program to convert degrees of Fahrenheit to Celsius.
+
+fah = int(input("Enter a temperature in Fahrenheit to convert to Celcius: "))
+cel = (fah -32) * 5/9
+
+print(fah, " in Fahrenheit is ", round(cel), " in Celcius")
