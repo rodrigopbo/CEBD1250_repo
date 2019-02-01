@@ -40,11 +40,13 @@ CREATE TABLE course (
     course_name VARCHAR(50) NOT NULL,
     course_description VARCHAR(100) NOT NULL,
     course_day VARCHAR(50) NOT NULL,
-    'CED-1250' VARCHAR(50) NOT NULL
+    `CED-1250` VARCHAR(50) NOT NULL
 )
 
+#3rd Insert a new row into course table
 
-
+INSERT INTO course (course_id, course_name, course_description)
+VALUES (1, 'CED-1250', 'Big Data Storage')
 
 # Delete all male employees hired at 01-01-2009
 
