@@ -1,0 +1,95 @@
+# Write a SQL query to get the third highest salary of an employee from employee_table
+SELECT first_name, last_name, salary FROM (
+    SELECT employees.*, salaries.salary,
+    dense_rank() over (ORDER BY salary DESC) AS rank
+        FROM 
+        employees
+        INNER JOIN 
+        salaries
+           ON employees.emp_no = salaries.emp_no
+
+ )
+WHERE rank=3
+
+-> Error in query (1064): Syntax error near '(ORDER BY salary DESC) AS rank FROM employees INNER ' at line 5
+
+# Write a SQL query to find the names of employees that begin with ‘A’
+SELECT first_name FROM employees WHERE first_name LIKE 'A%'
+
+# What is the difference between ‘HAVING’ CLAUSE and a ‘WHERE’ CLAUSE
+We cannot use WHERE clause when dealing with Aggregation, when using aggregation, we need to use HAVING clause.
+
+# List, and explain the elements of an Entities and Relationships model
+To list the elements of an Entity, you can use the SELECT statement.
+Entity relationship (ER) data model is based on two concepts:
+
+Entities -> defined as tables that hold specific information (data)
+Relationships -> defined as the associations or interactions between entities 
+
+Entities can participate in relationships with other entities.
+Like entities, relationships can have attributes: we can define a sale to be a relationship between a customer entity (identified by the unique email address) and a given number of the product entity (identified by the unique product ID) that exists at a particular date and time (the timestamp).
+
+When is need to express the relationship between tables (or entities), it is used a foreign key. This key is a column on the actual entity that refers the primary key of the connected entity, despite of referring a primary key of another entity, this field can accept null values.
+
+
+# What are the different categories of SQL statements, what does each group do
+	Data Definition Language (DDL) Statements
+		DDL statements let you to perform these tasks:
+		Create, alter, and drop schema objects
+		Grant and revoke privileges and roles
+		Analyze information on a table, index, or cluster
+		Establish auditing options
+		Add comments to the data dictionary
+
+	Data Manipulation Language (DML) Statements
+		DML statements access and manipulate data in existing schema objects. These statements do not implicitly commit the current transaction. The data manipulation language statements are:
+		CALL
+		DELETE
+		EXPLAIN PLAN
+		INSERT
+		LOCK TABLE
+		MERGE
+		SELECT
+		UPDATE
+
+
+		
+# List, and explain, the different types of joins
+Self -> A self join is a join in which a table is joined with itself, especially when the table has a FOREIGN KEY which references its own PRIMARY KEY. To join a table itself means that each row of the table is combined with itself and with every other row of the table.
+Inner -> Select all records from Table A and Table B, where the join condition is met.
+Left -> Select all records from Table A, along with records from Table B for which the join condition is met (if at all).
+Right -> Select all records from Table B, along with records from Table A for which the join condition is met (if at all).
+Full Outer -> Combines LEFT OUTER JOIN and RIGHT OUTER JOIN. It returns rows from either table when the conditions are met and returns NULL value when there is no match.
+
+# What is the difference between NULL value, Zero, and Blank space
+Zero is a number value. It is a definite with precise mathematical properties.
+NULL means the absence of any value. You can't do anything with it except test for it.
+Blank (or space) is a character. Blank could also be an empty string. It depends on the context.
+
+# Write a SQL that returns the employee name and title for all employees with even number as actual salary (to_date is 9999-01-01)
+SELECT first_name, last_name, salary, title
+FROM employees
+JOIN salaries ON employees.emp_no = salaries.emp_no
+JOIN titles ON employees.emp_no = titles.emp_no
+WHERE salaries.to_date = '9999-01-01'
+AND titles.to_date = '9999-01-01'
+AND salary % 2 = 0
+
+
+# What is wrong with the following query, re-write it making the needed corrections.
+SELECT employee.emp_no, AVG(salaries.salary)
+FROM employee INNER JOIN salaries AT employee.emp_no = salaries.emp_no
+HAVING AVG(salaries.salary) > 10000
+GROUP BY employee.emp_no
+
+What was wrong:
+employee table does not exist, employees is the right one to use.
+For INNER JOIN  we need to use ON and not AT
+HAVING statement has to be at the end of the query.
+
+You can see the right query below:
+
+SELECT employees.emp_no, AVG(salaries.salary)
+FROM employees INNER JOIN salaries ON employees.emp_no = salaries.emp_no
+GROUP BY employees.emp_no
+HAVING AVG(salaries.salary) > 10000
